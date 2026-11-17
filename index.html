@@ -155,12 +155,12 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;border-
     <p>I started by configuring transmitters and receivers on the bench to learn how the radio systems work end to end. From there I set up fixtures for battery and range testing, reviewed the range test method with an engineer on the team, and helped draft a battery characterization plan for two product lines. I also logged bug reports, sat in on incident meetings, and tracked my own work in Jira.</p>
     <p>The hardest part was learning the radio stack from zero in four weeks, with AP exams the same month.</p>
     <div class="strip">
-      <figure class="photo"><img src="img/fort-radios.jpg" alt="Transmitter and receiver boards on a blue lab bench next to a handheld wireless controller" loading="lazy"><figcaption class="label">Configuring transmitters and receivers</figcaption></figure>
-      <figure class="photo"><img src="img/fort-battery.jpg" alt="Laptop, multimeter and battery pack wired together on a test bench" loading="lazy"><figcaption class="label">Battery test setup</figcaption></figure>
-      <figure class="photo"><img src="img/fort-rig.jpg" alt="Controllers, relay boards and wiring spread across a lab bench" loading="lazy"><figcaption class="label">Test automation wiring</figcaption></figure>
+      <figure class="photo"><img src="fort-radios.jpg" alt="Transmitter and receiver boards on a blue lab bench next to a handheld wireless controller" loading="lazy"><figcaption class="label">Configuring transmitters and receivers</figcaption></figure>
+      <figure class="photo"><img src="fort-battery.jpg" alt="Laptop, multimeter and battery pack wired together on a test bench" loading="lazy"><figcaption class="label">Battery test setup</figcaption></figure>
+      <figure class="photo"><img src="fort-rig.jpg" alt="Controllers, relay boards and wiring spread across a lab bench" loading="lazy"><figcaption class="label">Test automation wiring</figcaption></figure>
     </div>
     <div class="feature">
-      <figure class="photo"><img src="img/fort-enclosure.jpg" alt="Blue 3D-printed enclosure with a yellow controller seated in a cradle on its lid" loading="lazy"></figure>
+      <figure class="photo"><img src="fort-enclosure.jpg" alt="Blue 3D-printed enclosure with a yellow controller seated in a cradle on its lid" loading="lazy"></figure>
       <div class="feature-text">
         <h3>Test rig enclosure</h3>
         <p>I designed a 3D-printed enclosure for the EPC test automation hardware: a LabJack, an 8-channel relay module and a breakout board inside, with the EPC sitting in a cradle on the lid. I modeled it in CadQuery, exported it to STEP and sliced it in Bambu Studio.</p>
@@ -189,7 +189,7 @@ footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;border-
   <div class="notes">
     <p>Three of us built both halves of an AM link. The transmitter started from an XR2206 function generator kit. We traced a dead output on the scope to bad solder joints, then fed a second function generator into the AMSI pin to modulate the amplitude. Tuned to an open frequency, it came through on a regular AM radio.</p>
     <p>The receiver only works if its LC circuit hits the right frequency, so we needed the coil's inductance. We found it two ways: from the coil's dimensions and number of turns, and from an LR decay on the scope. For the second, we drove the coil with a square wave, read the time constant at 37% of the peak, and solved L = τR. The two values agreed.</p>
-    <figure class="photo"><img src="img/radio-lr-decay.jpg" alt="Analog oscilloscope showing a sharp spike that decays quickly back to the baseline" loading="lazy" style="aspect-ratio:4/3;object-fit:cover"><figcaption class="label">LR decay on the scope, used to measure the coil's inductance</figcaption></figure>
+    <figure class="photo"><img src="radio-lr-decay.jpg" alt="Analog oscilloscope showing a sharp spike that decays quickly back to the baseline" loading="lazy" style="aspect-ratio:4/3;object-fit:cover"><figcaption class="label">LR decay on the scope, used to measure the coil's inductance</figcaption></figure>
     <figure class="plate">
       <svg viewBox="0 0 680 236" role="img" aria-label="Signal path. Transmitter: a tone generator feeds the XR2206 kit, which drives an antenna. Receiver: antenna into an LC tank, then a 1N34 diode, an LM386 amplifier, and earphones. The LC tank is grounded to a radiator.">
         <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L8 4 L0 8 Z"/></marker></defs>
