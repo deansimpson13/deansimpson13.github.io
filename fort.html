@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FORT Robotics | Dean Simpson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page">
+<div class="wrap">
+
+<nav class="topnav" aria-label="Site">
+  <a class="home" href="index.html">&larr; Dean Simpson</a>
+  <div class="pnav"><a href="fort.html" aria-current="page">FORT</a><a href="radio.html">AM radio</a><a href="itch.html">ITCH parser</a></div>
+</nav>
+
+<section class="record" id="fort">
+  <div class="side">
+    <h1 class="page-title">FORT Robotics</h1>
+    <table class="spec">
+      <tr><th>Where</th><td>Philadelphia, internship</td></tr>
+      <tr><th>When</th><td>May 2026</td></tr>
+      <tr><th>Role</th><td>Systems integration and test intern, working with the quality engineering team</td></tr>
+      <tr><th>Length</th><td>Four weeks</td></tr>
+      <tr><th>Devices tested</th><td>25 to 50 wireless units</td></tr>
+      <tr><th>Tools</th><td>CadQuery, Bambu Studio, LabJack, Jira, Altium 365</td></tr>
+    </table>
+  </div>
+  <div class="notes">
+    <p>FORT makes wireless safety controls for industrial robots and machines, like handheld emergency stops.</p>
+    <p>I started by configuring transmitters and receivers on the bench to learn how the radio systems work end to end. From there I set up fixtures for battery and range testing, reviewed the range test method with an engineer on the team, and helped draft a battery characterization plan for two product lines. I also logged bug reports, sat in on incident meetings, and tracked my own work in Jira.</p>
+    <p>The hardest part was learning the radio stack from zero in four weeks, with AP exams the same month.</p>
+    <div class="strip">
+      <figure class="photo"><img src="fort-radios.jpg" alt="Transmitter and receiver boards on a blue lab bench next to a handheld wireless controller" loading="lazy"><figcaption class="label">Configuring transmitters and receivers</figcaption></figure>
+      <figure class="photo"><img src="fort-battery.jpg" alt="Laptop, multimeter and battery pack wired together on a test bench" loading="lazy"><figcaption class="label">Battery test setup</figcaption></figure>
+      <figure class="photo"><img src="fort-rig.jpg" alt="Controllers, relay boards and wiring spread across a lab bench" loading="lazy"><figcaption class="label">Test automation wiring</figcaption></figure>
+    </div>
+    <div class="feature">
+      <figure class="photo"><img src="fort-enclosure.jpg" alt="Blue 3D-printed enclosure with a yellow controller seated in a cradle on its lid" loading="lazy"></figure>
+      <div class="feature-text">
+        <h3>Test rig enclosure</h3>
+        <p>I designed a 3D-printed enclosure for the EPC test automation hardware: a LabJack, an 8-channel relay module and a breakout board inside, with the EPC sitting in a cradle on the lid. I modeled it in CadQuery, exported it to STEP and sliced it in Bambu Studio.</p>
+        <p>The tricky part was fitting the specific boards and leaving room for cables while keeping the design printable.</p>
+        <table class="spec">
+          <tr><th>Footprint</th><td>240 × 180 × 90 mm</td></tr>
+          <tr><th>Material</th><td>PLA</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<nav class="after" aria-label="More">
+  <a class="next" href="radio.html"><span class="label">Next project</span><span class="nt">AM transmitter and receiver &rarr;</span></a>
+  <div class="reach">
+    <span class="label">Get in touch</span>
+    <p>das9912@nyu.edu</p>
+    <p><a href="https://www.linkedin.com/in/dean-simpson-baa33b329/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="resume.pdf" target="_blank" rel="noopener">Resume</a> &middot; <a href="https://github.com/deansimpson13" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
+</nav>
+
+<footer class="label">
+  <span>Dean Simpson</span>
+  <span>New York</span>
+</footer>
+
+</div>
+</body>
+</html>

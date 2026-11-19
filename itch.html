@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ITCH 5.0 parser in Verilog | Dean Simpson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page">
+<div class="wrap">
+
+<nav class="topnav" aria-label="Site">
+  <a class="home" href="index.html">&larr; Dean Simpson</a>
+  <div class="pnav"><a href="fort.html">FORT</a><a href="radio.html">AM radio</a><a href="itch.html" aria-current="page">ITCH parser</a></div>
+</nav>
+
+<section class="record" id="itch">
+  <div class="side">
+    <h1 class="page-title">ITCH 5.0 parser in Verilog</h1>
+    <table class="spec">
+      <tr><th>Protocol</th><td>NASDAQ TotalView-ITCH 5.0</td></tr>
+      <tr><th>When</th><td>Fall 2026, personal project</td></tr>
+      <tr><th>Language</th><td>Verilog, checked against a Python reference model</td></tr>
+      <tr><th>Decodes</th><td>9 message types (S R A F E C X D U); skips the other 14 cleanly</td></tr>
+      <tr><th>Tested on</th><td>500,000 real NASDAQ messages, 0 mismatches</td></tr>
+      <tr><th>Synthesized for</th><td>Lattice iCE40-HX8K, about 91 MHz</td></tr>
+      <tr><th>Stage</th><td>Synthesized, not yet running on a board</td></tr>
+      <tr><th>Code</th><td><a href="https://github.com/deansimpson13/itch5-verilog-parser" target="_blank" rel="noopener">itch5-verilog-parser</a></td></tr>
+    </table>
+  </div>
+  <div class="notes">
+    <p>ITCH is the binary feed NASDAQ uses to broadcast every order, cancel and trade. Trading firms parse it in FPGAs because hardware can decode a message in nanoseconds. I built a small version of that parser in Verilog, and spent most of my time checking that it decodes correctly.</p>
+    <p>Every message the hardware decodes gets compared field by field against a Python version. Both came from my reading of the spec, so they could share the same mistake. To catch that, I also ran an outside open-source parser on a slice of real NASDAQ data from January 2019. Over 500,000 real messages, the Verilog matched the Python model line for line, and the outside parser agreed on all 2.7 million fields.</p>
+    <p>I then synthesized it with free tools (Yosys and nextpnr) for a Lattice iCE40. The parser on its own takes 331 LUTs and 1,040 flip-flops, a small slice of the chip, and runs at about 91 MHz in the worst case. Shrinking one counter from 16 bits to 6 bits took that up from 81 MHz.</p>
+    <figure class="plate">
+<svg class="wave" viewBox="0 0 802 273" role="img" aria-label="Timing diagram of one Add Order message through the parser. Two length bytes arrive, the framer moves to BODY, msg_valid goes high and the decoder position counts up as bytes fill the buffer. After the last byte, done pulses, then out_valid pulses for one clock with all fields decoded.">
+<text x="137.0" y="22" text-anchor="middle" class="lbl">1</text>
+<text x="187.0" y="22" text-anchor="middle" class="lbl">2</text>
+<text x="237.0" y="22" text-anchor="middle" class="lbl">3</text>
+<text x="287.0" y="22" text-anchor="middle" class="lbl">4</text>
+<text x="337.0" y="22" text-anchor="middle" class="lbl">5</text>
+<text x="387.0" y="22" text-anchor="middle" class="lbl">6</text>
+<text x="437.0" y="22" text-anchor="middle" class="lbl">7</text>
+<text x="475.0" y="22" text-anchor="middle" class="lbl">…</text>
+<text x="513.0" y="22" text-anchor="middle" class="lbl">36</text>
+<text x="563.0" y="22" text-anchor="middle" class="lbl">37</text>
+<text x="613.0" y="22" text-anchor="middle" class="lbl">38</text>
+<text x="663.0" y="22" text-anchor="middle" class="lbl">39</text>
+<text x="713.0" y="22" text-anchor="middle" class="lbl">40</text>
+<text x="763.0" y="22" text-anchor="middle" class="lbl">41</text>
+<text x="10" y="22" class="lbl">clock cycle</text>
+<text x="10" y="50" class="lbl">clk</text>
+<path class="ln" d="M112 55 V37 H137.0 V55 H162"/>
+<path class="ln" d="M162 55 V37 H187.0 V55 H212"/>
+<path class="ln" d="M212 55 V37 H237.0 V55 H262"/>
+<path class="ln" d="M262 55 V37 H287.0 V55 H312"/>
+<path class="ln" d="M312 55 V37 H337.0 V55 H362"/>
+<path class="ln" d="M362 55 V37 H387.0 V55 H412"/>
+<path class="ln" d="M412 55 V37 H437.0 V55 H462"/>
+<path class="ln" d="M488 55 V37 H513.0 V55 H538"/>
+<path class="ln" d="M538 55 V37 H563.0 V55 H588"/>
+<path class="ln" d="M588 55 V37 H613.0 V55 H638"/>
+<path class="ln" d="M638 55 V37 H663.0 V55 H688"/>
+<path class="ln" d="M688 55 V37 H713.0 V55 H738"/>
+<path class="ln" d="M738 55 V37 H763.0 V55 H788"/>
+<text x="10" y="84" class="lbl">in_data</text>
+<path class="ln" d="M112 80 L115 71 H159 L162 80 L159 89 H115 Z"/>
+<text x="137.0" y="84" text-anchor="middle">00</text>
+<path class="ln" d="M162 80 L165 71 H209 L212 80 L209 89 H165 Z"/>
+<text x="187.0" y="84" text-anchor="middle">24</text>
+<path class="ln" d="M212 80 L215 71 H259 L262 80 L259 89 H215 Z"/>
+<text x="237.0" y="84" text-anchor="middle">41</text>
+<path class="ln" d="M262 80 L265 71 H309 L312 80 L309 89 H265 Z"/>
+<text x="287.0" y="84" text-anchor="middle">00</text>
+<path class="ln" d="M312 80 L315 71 H359 L362 80 L359 89 H315 Z"/>
+<text x="337.0" y="84" text-anchor="middle">07</text>
+<path class="ln" d="M362 80 L365 71 H409 L412 80 L409 89 H365 Z"/>
+<text x="387.0" y="84" text-anchor="middle">00</text>
+<path class="ln" d="M412 80 L415 71 H459 L462 80 L459 89 H415 Z"/>
+<text x="437.0" y="84" text-anchor="middle">2a</text>
+<path class="ln" d="M488 80 L491 71 H535 L538 80 L535 89 H491 Z"/>
+<text x="513.0" y="84" text-anchor="middle">1b</text>
+<path class="ln" d="M538 80 L541 71 H585 L588 80 L585 89 H541 Z"/>
+<text x="563.0" y="84" text-anchor="middle">4c</text>
+<path class="ln" d="M588 80 L591 71 H635 L638 80 L635 89 H591 Z"/>
+<text x="613.0" y="84" text-anchor="middle">14</text>
+<path class="ln" style="opacity:.35" d="M638 80 H788"/>
+<text x="10" y="118" class="lbl">framer</text>
+<path class="ln" d="M112 114 L115 105 H159 L162 114 L159 123 H115 Z"/>
+<text x="137.0" y="118" text-anchor="middle">LEN_HI</text>
+<path class="ln" d="M162 114 L165 105 H209 L212 114 L209 123 H165 Z"/>
+<text x="187.0" y="118" text-anchor="middle">LEN_LO</text>
+<path class="ln" d="M212 114 L215 105 H459 L462 114 L459 123 H215 Z"/>
+<text x="337.0" y="118" text-anchor="middle">BODY</text>
+<path class="ln" d="M488 114 L491 105 H635 L638 114 L635 123 H491 Z"/>
+<text x="563.0" y="118" text-anchor="middle">BODY</text>
+<path class="ln" d="M638 114 L641 105 H785 L788 114 L785 123 H641 Z"/>
+<text x="713.0" y="118" text-anchor="middle">LEN_HI</text>
+<text x="10" y="152" class="lbl">msg_valid</text>
+<path class="ln" d="M112 157 H262"/>
+<path class="ln" d="M262 139 H462"/>
+<path class="ln" d="M488 139 H688"/>
+<path class="ln" d="M688 157 H788"/>
+<path class="ln" d="M262 139 V157"/>
+<path class="ln" d="M688 139 V157"/>
+<text x="10" y="186" class="lbl">decoder pos</text>
+<path class="ln" d="M112 182 L115 173 H309 L312 182 L309 191 H115 Z"/>
+<text x="212.0" y="186" text-anchor="middle">0</text>
+<path class="ln" d="M312 182 L315 173 H359 L362 182 L359 191 H315 Z"/>
+<text x="337.0" y="186" text-anchor="middle">1</text>
+<path class="ln" d="M362 182 L365 173 H409 L412 182 L409 191 H365 Z"/>
+<text x="387.0" y="186" text-anchor="middle">2</text>
+<path class="ln" d="M412 182 L415 173 H459 L462 182 L459 191 H415 Z"/>
+<text x="437.0" y="186" text-anchor="middle">3</text>
+<path class="ln" d="M488 182 L491 173 H535 L538 182 L535 191 H491 Z"/>
+<text x="513.0" y="186" text-anchor="middle">32</text>
+<path class="ln" d="M538 182 L541 173 H585 L588 182 L585 191 H541 Z"/>
+<text x="563.0" y="186" text-anchor="middle">33</text>
+<path class="ln" d="M588 182 L591 173 H635 L638 182 L635 191 H591 Z"/>
+<text x="613.0" y="186" text-anchor="middle">34</text>
+<path class="ln" d="M638 182 L641 173 H685 L688 182 L685 191 H641 Z"/>
+<text x="663.0" y="186" text-anchor="middle">35</text>
+<path class="ln" d="M688 182 L691 173 H785 L788 182 L785 191 H691 Z"/>
+<text x="738.0" y="186" text-anchor="middle">36</text>
+<text x="10" y="220" class="lbl">done</text>
+<path class="ln" d="M112 225 H462"/>
+<path class="ln" d="M488 225 H688"/>
+<path class="ln" d="M688 207 H738"/>
+<path class="ln" d="M738 225 H788"/>
+<path class="ln" d="M688 207 V225"/>
+<path class="ln" d="M738 207 V225"/>
+<text x="10" y="254">out_valid</text>
+<path class="accln" d="M112 259 H462"/>
+<path class="accln" d="M488 259 H738"/>
+<path class="accln" d="M738 241 H788"/>
+<path class="accln" d="M738 241 V259"/>
+<path class="ln" style="opacity:.5" d="M470 32 l-4 223 M480 32 l-4 223"/>
+</svg>
+      <figcaption class="label">One Add Order going through the parser in simulation. The framer reads the 2-byte length, the decoder fills its buffer one byte per clock, and out_valid pulses once every field is ready.</figcaption>
+    </figure>
+    <dl class="findings">
+      <div><dt>What testing caught</dt><dd>The decoder's buffer was one byte too short for the 40-byte F message. The Python comparison flagged it as soon as I added that type.</dd></div>
+      <div><dt>Limits</dt><dd>At one byte per clock it moves about 0.73 Gb/s, roughly 7% of 10 Gb Ethernet. Fine for testing, but far too slow for a live feed.</dd></div>
+      <div><dt>Next</dt><dd>Run it on a real FPGA board with ITCH bytes sent over UART, then build an order book on top of the decoded messages.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<nav class="after" aria-label="More">
+  <a class="next" href="fort.html"><span class="label">Next project</span><span class="nt">FORT Robotics &rarr;</span></a>
+  <div class="reach">
+    <span class="label">Get in touch</span>
+    <p>das9912@nyu.edu</p>
+    <p><a href="https://www.linkedin.com/in/dean-simpson-baa33b329/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="resume.pdf" target="_blank" rel="noopener">Resume</a> &middot; <a href="https://github.com/deansimpson13" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
+</nav>
+
+<footer class="label">
+  <span>Dean Simpson</span>
+  <span>New York</span>
+</footer>
+
+</div>
+</body>
+</html>

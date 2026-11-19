@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>AM transmitter and receiver | Dean Simpson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="page">
+<div class="wrap">
+
+<nav class="topnav" aria-label="Site">
+  <a class="home" href="index.html">&larr; Dean Simpson</a>
+  <div class="pnav"><a href="fort.html">FORT</a><a href="radio.html" aria-current="page">AM radio</a><a href="itch.html">ITCH parser</a></div>
+</nav>
+
+<section class="record" id="radio">
+  <div class="side">
+    <h1 class="page-title">AM transmitter and receiver</h1>
+    <table class="spec">
+      <tr><th>Transmitter</th><td>XR2206 function generator kit, modulated through its AMSI pin</td></tr>
+      <tr><th>Receiver</th><td>Hand-wound coil, adjustable capacitor, 1N34 diode, LM386 amplifier</td></tr>
+      <tr><th>Tuning</th><td>f = 1 / (2π√LC)</td></tr>
+      <tr><th>Test gear</th><td>Oscilloscope, two function generators, multimeter, capacitance meter</td></tr>
+      <tr><th>When</th><td>2025, team of three</td></tr>
+    </table>
+  </div>
+  <div class="notes">
+    <p>Three of us built both halves of an AM link. The transmitter started from an XR2206 function generator kit. We traced a dead output on the scope to bad solder joints, then fed a second function generator into the AMSI pin to modulate the amplitude. Tuned to an open frequency, it came through on a regular AM radio.</p>
+    <p>The receiver only works if its LC circuit hits the right frequency, so we needed the coil's inductance. We found it two ways: from the coil's dimensions and number of turns, and from an LR decay on the scope. For the second, we drove the coil with a square wave, read the time constant at 37% of the peak, and solved L = τR. The two values agreed.</p>
+    <figure class="photo"><img src="radio-lr-decay.jpg" alt="Analog oscilloscope showing a sharp spike that decays quickly back to the baseline" loading="lazy" style="aspect-ratio:4/3;object-fit:cover"><figcaption class="label">LR decay on the scope, used to measure the coil's inductance</figcaption></figure>
+    <figure class="plate">
+      <svg viewBox="0 0 680 236" role="img" aria-label="Signal path. Transmitter: a tone generator feeds the XR2206 kit, which drives an antenna. Receiver: antenna into an LC tank, then a 1N34 diode, an LM386 amplifier, and earphones. The LC tank is grounded to a radiator.">
+        <defs><marker id="ah" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="ah" d="M0 0 L8 4 L0 8 Z"/></marker></defs>
+        <text x="10" y="24" class="lbl">Transmitter</text>
+        <rect class="bx" x="10" y="36" width="140" height="50" rx="3"/><text x="80" y="57" text-anchor="middle">Tone generator</text><text x="80" y="74" text-anchor="middle" class="lbl">the message</text>
+        <rect class="bx" x="190" y="36" width="160" height="50" rx="3"/><text x="270" y="57" text-anchor="middle">XR2206 kit</text><text x="270" y="74" text-anchor="middle" class="lbl">carrier, AM via AMSI pin</text>
+        <path class="ln" d="M150 61 H188" marker-end="url(#ah)"/>
+        <path class="ln" d="M350 61 H380 V30"/>
+        <path class="accln" d="M368 30 L380 12 L392 30 M380 12 V30"/>
+        <path class="accln" d="M405 26 q10 -12 20 0 t20 0 t20 0 t20 0 t20 0"/>
+        <text x="455" y="50" text-anchor="middle" class="lbl">carrier ± tone</text>
+        <path class="accln" d="M528 30 L540 12 L552 30 M540 12 V30"/>
+        <path class="ln" d="M540 30 V148" marker-end="url(#ah)"/>
+        <text x="10" y="140" class="lbl">Receiver</text>
+        <rect class="bx" x="450" y="150" width="180" height="50" rx="3"/><text x="540" y="171" text-anchor="middle">LC tank</text><text x="540" y="188" text-anchor="middle" class="lbl">coil + binder-clip capacitor</text>
+        <rect class="bx" x="320" y="150" width="100" height="50" rx="3"/><text x="370" y="171" text-anchor="middle">1N34 diode</text><text x="370" y="188" text-anchor="middle" class="lbl">detector</text>
+        <rect class="bx" x="170" y="150" width="120" height="50" rx="3"/><text x="230" y="171" text-anchor="middle">LM386</text><text x="230" y="188" text-anchor="middle" class="lbl">amplifier</text>
+        <rect class="bx" x="10" y="150" width="130" height="50" rx="3"/><text x="75" y="179" text-anchor="middle">Earphones</text>
+        <path class="ln" d="M450 175 H422" marker-end="url(#ah)"/>
+        <path class="ln" d="M320 175 H292" marker-end="url(#ah)"/>
+        <path class="ln" d="M170 175 H142" marker-end="url(#ah)"/>
+        <path class="ln" d="M600 200 V214 M588 214 H612 M592 219 H608 M596 224 H604"/>
+        <text x="584" y="222" text-anchor="end" class="lbl">ground to a radiator</text>
+      </svg>
+      <figcaption class="label">Our signal path, redrawn from the circuits we built.</figcaption>
+    </figure>
+    <dl class="findings">
+      <div><dt>What worked</dt><dd>The transmitter came through on a regular AM radio from more than 15 feet away, and the receiver pulled in faint audio from a local station. A longer, higher antenna, the amplifier and a solid ground all made a clear difference.</dd></div>
+      <div><dt>What didn't</dt><dd>Our receiver never picked up our own transmitter, and its audio stayed quiet and full of static.</dd></div>
+      <div><dt>Next time</dt><dd>Measure L and C before building anything, and add the amplifier from the start.</dd></div>
+    </dl>
+  </div>
+</section>
+
+<nav class="after" aria-label="More">
+  <a class="next" href="itch.html"><span class="label">Next project</span><span class="nt">ITCH 5.0 parser in Verilog &rarr;</span></a>
+  <div class="reach">
+    <span class="label">Get in touch</span>
+    <p>das9912@nyu.edu</p>
+    <p><a href="https://www.linkedin.com/in/dean-simpson-baa33b329/" target="_blank" rel="noopener">LinkedIn</a> &middot; <a href="resume.pdf" target="_blank" rel="noopener">Resume</a> &middot; <a href="https://github.com/deansimpson13" target="_blank" rel="noopener">GitHub</a></p>
+  </div>
+</nav>
+
+<footer class="label">
+  <span>Dean Simpson</span>
+  <span>New York</span>
+</footer>
+
+</div>
+</body>
+</html>
